@@ -1,4 +1,4 @@
-from processor import Processor
+from src.processor.processor import Processor
 
 
 class Szep(Processor):
