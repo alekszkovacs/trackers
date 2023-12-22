@@ -22,7 +22,7 @@ class Otp(Processor):
     def __init__(self) -> None:
         super().__init__()
 
-    def _remove_bank_stuff(self):
+    def _remove_account_stuff(self):
         pass
 
     def _keep_only_completed_txns(self):

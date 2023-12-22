@@ -5,11 +5,30 @@ import warnings
 
 from abc import ABC, abstractmethod
 from category_mapper import CategoryMapper
+from configparser import ConfigParser
 
-CURRENT_YEAR = 2023
+CURRENT_DIR = os.path.dirname(__file__)
+PROJECT_ROOT = f"{CURRENT_DIR}/../.."
 
 
 class Processor(ABC):
+    def __init__(self) -> None:
+        super().__init__()
+        self.categories = None
+        self.df = None
+        self.category_mapper = CategoryMapper()
+
+        config_object = ConfigParser()
+        config_object.read(f"{PROJECT_ROOT}/config.ini")
+        self.source_folder = config_object["DEFAULT"]["source_folder"]
+        self.output_folder = config_object["DEFAULT"]["output_folder"]
+
+        self.completed_txns_column = None
+        self.date_column = None
+        self.amount_column = None
+        self.vendor_column = None
+        self.category_column = "Category"
+
     @abstractmethod
     def execute(self):
         """
@@ -38,10 +57,9 @@ class Processor(ABC):
         * vendor_column
         """
 
-        _current_dir = os.path.dirname(__file__)
-        categories_path = f"{_current_dir}/categories/{categories_fname}"
-        source_path = f"{_current_dir}/../../data/_source/{source_fname}"
-        output_path = f"{_current_dir}/../../data/{CURRENT_YEAR}/{output_fname}"
+        categories_path = f"{CURRENT_DIR}/categories/{categories_fname}"
+        source_path = f"{PROJECT_ROOT}/{self.source_folder}/{source_fname}"
+        output_path = f"{PROJECT_ROOT}/{self.output_folder}/{output_fname}"
 
         self.completed_txns_column = completed_txns_column
         self.date_column = date_column
@@ -59,7 +77,7 @@ class Processor(ABC):
 
         self._init_source(source_path)
         self._init_categories(categories_path)
-        self._remove_bank_stuff()
+        self._remove_account_stuff()
         self._keep_only_completed_txns()
         self._adjust_amounts()
         self._keep_columns(columns_to_keep)
@@ -70,18 +88,6 @@ class Processor(ABC):
         # self._put_categories_to_the_right()
         self._write_df_to_file(output_path)
         # self._delete_source(source_path)
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.categories = None
-        self.df = None
-        self.category_mapper = CategoryMapper()
-
-        self.completed_txns_column = None
-        self.date_column = None
-        self.amount_column = None
-        self.vendor_column = None
-        self.category_column = "Category"
 
     def _init_source(self, file: str):
         with warnings.catch_warnings():
@@ -166,12 +172,12 @@ class Processor(ABC):
 
     """ 
     ### Abstract methods ###
-    These methods are not required by all banks and probably very specific to a bank, so they are abstracted, which means
+    These methods are not required by all accounts and probably very specific to a account, so they are abstracted, which means
     that you must specify in child if they are needed.
     """
 
     @abstractmethod
-    def _remove_bank_stuff(self):
+    def _remove_account_stuff(self):
         pass
 
     @abstractmethod

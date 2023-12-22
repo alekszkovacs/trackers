@@ -25,7 +25,7 @@ class Wise(Processor):
     def __init__(self) -> None:
         super().__init__()
 
-    def _remove_bank_stuff(self):
+    def _remove_account_stuff(self):
         """
         Remove rows where "Target name" is "Alex Márk Kovács".
         With this we will get rid from txns which were money top-ups.

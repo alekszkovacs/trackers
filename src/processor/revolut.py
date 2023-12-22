@@ -25,7 +25,7 @@ class Revolut(Processor):
     def __init__(self) -> None:
         super().__init__()
 
-    def _remove_bank_stuff(self):
+    def _remove_account_stuff(self):
         # remove rows from df which contain "To HUF" or "Apple Pay Top-Up" in the "Description" column
         df = self.df
         self.df = df[~df[self.vendor_column].str.contains("To HUF|Apple Pay Top-Up")]

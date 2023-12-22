@@ -25,7 +25,7 @@ class Unicredit(Processor):
     def __init__(self) -> None:
         super().__init__()
 
-    def _remove_bank_stuff(self):
+    def _remove_account_stuff(self):
         self.df.columns = self.df.iloc[2]
         self.df = self.df[3:]
 
