@@ -20,8 +20,8 @@ class Processor(ABC):
 
         config_object = ConfigParser()
         config_object.read(f"{PROJECT_ROOT}/config.ini")
-        self.source_folder = config_object["DEFAULT"]["source_folder"]
-        self.output_folder = config_object["DEFAULT"]["output_folder"]
+        self._source_folder = config_object["DEFAULT"]["_source_folder"]
+        self.database_folder = config_object["DEFAULT"]["database_folder"]
 
         self.completed_txns_column = None
         self.date_column = None
@@ -58,8 +58,8 @@ class Processor(ABC):
         """
 
         categories_path = f"{CURRENT_DIR}/categories/{categories_fname}"
-        source_path = f"{PROJECT_ROOT}/{self.source_folder}/{source_fname}"
-        output_path = f"{PROJECT_ROOT}/{self.output_folder}/{output_fname}"
+        source_path = f"{PROJECT_ROOT}/{self._source_folder}/{source_fname}"
+        output_path = f"{PROJECT_ROOT}/{self.database_folder}/{output_fname}"
 
         self.completed_txns_column = completed_txns_column
         self.date_column = date_column
