@@ -1,4 +1,4 @@
-from src.processor.processor import Processor
+from processor import Processor
 
 
 class Revolut(Processor):

@@ -1,3 +1,5 @@
+import traceback
+
 from otp import Otp
 from unicredit import Unicredit
 from revolut import Revolut
@@ -10,30 +12,15 @@ from timeit import default_timer as timer
 def main():
     _start = timer()
 
-    otp = Otp()
-    print("processing OTP...")
-    otp.execute()
-    print("finished OTP.")
-
-    # unicredit = Unicredit()
-    print("processing Unicredit...")
-    # unicredit.execute()
-    print("finished Unicredit.")
-
-    revolut = Revolut()
-    print("processing Revolut...")
-    revolut.execute()
-    print("finished Revolut.")
-
-    szep = Szep()
-    print("processing Szep...")
-    szep.execute()
-    print("finished Szep.")
-
-    wise = Wise()
-    print("processing Wise...")
-    wise.execute()
-    print("finished Wise.")
+    processors = [Otp(), Revolut(), Szep(), Wise()]
+    for processor in processors:
+        _class_name = processor.__class__.__name__
+        print(f"processing {_class_name}...")
+        try:
+            processor.execute()
+        except Exception:
+            traceback.print_exc()
+        print(f"finished {_class_name}.")
 
     _end = timer()
     print(f"Job was taken {_end - _start} seconds.")

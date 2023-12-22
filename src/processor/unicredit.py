@@ -1,5 +1,5 @@
 import math
-from src.processor.processor import Processor
+from processor import Processor
 
 
 class Unicredit(Processor):
