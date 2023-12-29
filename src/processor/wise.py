@@ -5,7 +5,7 @@ class Wise(Processor):
     def execute(self):
         categories_fname = "wise_categories.yaml"
         source_fname = "transaction-history.csv"
-        output_fname = "zzzzzzzzzzres_WISE.xlsx"
+        output_fname = "zzzzzzzzzzres_wise.xlsx"
         completed_txns_column = "Status"
         # keep "Finished on" and drop "Created on" because "Finished on" is what Wise app shows
         date_column = "Finished on"

@@ -5,7 +5,7 @@ class Revolut(Processor):
     def execute(self):
         categories_fname = "revolut_categories.yaml"
         source_fname = "account-statement.csv"
-        output_fname = "zzzzzzzzzzres_REVOLUT.xlsx"
+        output_fname = "zzzzzzzzzzres_revolut.xlsx"
         completed_txns_column = "State"
         # keep "Started Date" and drop "Completed Date" because "Started Date" is what Revolut app shows
         date_column = "Started Date"

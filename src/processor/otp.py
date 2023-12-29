@@ -5,7 +5,7 @@ class Otp(Processor):
     def execute(self):
         categories_fname = "otp_categories.yaml"
         source_fname = "tranzakciók.xlsx"
-        output_fname = "zzzzzzzzzzres_OTP.xlsx"
+        output_fname = "zzzzzzzzzzres_otp.xlsx"
         date_column = "Tranzakció dátuma"
         amount_column = "Összeg"
         vendor_column = "Partner neve"

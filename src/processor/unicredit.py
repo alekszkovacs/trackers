@@ -6,7 +6,7 @@ class Unicredit(Processor):
     def execute(self):
         categories_fname = "unicredit_categories.yaml"
         source_fname = "export.xls"
-        output_fname = "zzzzzzzzzzres_UNICREDIT.xlsx"
+        output_fname = "zzzzzzzzzzres_unicredit.xlsx"
         completed_txns_column = "Státusz"
         date_column = "Érték Dátum"
         amount_column = "Összeg"

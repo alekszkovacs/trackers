@@ -5,7 +5,7 @@ class Szep(Processor):
     def execute(self):
         categories_fname = "szep_categories.yaml"
         source_fname = "exportalt__tablazat.xlsx"
-        output_fname = "zzzzzzzzzzres_SZEP.xlsx"
+        output_fname = "zzzzzzzzzzres_szep.xlsx"
         completed_txns_column = "Státusz"
         date_column = "Dátum"
         amount_column = "Összeg"

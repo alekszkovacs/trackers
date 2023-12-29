@@ -23,7 +23,7 @@ def main():
         print(f"finished {_class_name}.")
 
     _end = timer()
-    print(f"Job was taken {_end - _start} seconds.")
+    print(f"Processing accounts was taken {_end - _start} seconds.")
 
 
 if __name__ == "__main__":
