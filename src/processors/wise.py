@@ -39,6 +39,8 @@ class Wise(Processor):
 
     def _adjust_amounts(self):
         """
+        TODO: when direction is IN, add the Source fee amount to the place of Amount.
+
         - add "Source fee amount" and "Source amount (after fees)" to get "Amount"
         - add negative sign to "Amount" if "Direction" is "OUT"
         """

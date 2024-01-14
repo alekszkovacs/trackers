@@ -7,8 +7,7 @@ from abc import ABC, abstractmethod
 from category_mapper import CategoryMapper
 from configparser import ConfigParser
 
-CURRENT_DIR = os.path.dirname(__file__)
-PROJECT_ROOT = f"{CURRENT_DIR}/../.."
+from __init__ import PROJECT_ROOT, CURRENT_DIR
 
 
 class Processor(ABC):
@@ -21,7 +20,7 @@ class Processor(ABC):
         config_object = ConfigParser()
         config_object.read(f"{PROJECT_ROOT}/config.ini")
         self._source_folder = config_object["DEFAULT"]["_source_folder"]
-        self.database_folder = config_object["DEFAULT"]["database_folder"]
+        self.database_folder = f'{config_object["DEFAULT"]["database_folder"]}/{config_object["DEFAULT"]["current_year"]}'
 
         self.completed_txns_column = None
         self.date_column = None

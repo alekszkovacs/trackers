@@ -1,6 +1,8 @@
 import os
 import re
 import yaml
+import traceback
+import pandas as pd
 
 
 class CategoryMapper:
@@ -29,27 +31,34 @@ class CategoryMapper:
             result = []
             for vendor in vendors:
                 _found = False
-                for category, patterns in self.mapping.items():
-                    if _found:
-                        break
-                    else:
-                        for pattern in patterns:
-                            if pattern and pattern.startswith("CS:"):
-                                pattern = pattern.split("CS:")[1]
-                                method = re.match(rf"{pattern}", vendor)
-                            else:
-                                method = re.match(rf"{pattern}", vendor, re.IGNORECASE)
-                            if method:
-                                _found = True
-                                result.append(category)
-                                break
-                # if there was no break, then no match was found, so we have to add empty string
+                if vendor and not pd.isna(vendor):
+                    for category, patterns in self.mapping.items():
+                        if _found:
+                            break
+                        else:
+                            for pattern in patterns:
+                                if pattern and pattern.startswith("CS:"):
+                                    pattern = pattern.split("CS:")[1]
+                                    method = re.match(rf"{pattern}", vendor)
+                                else:
+                                    method = re.match(
+                                        rf"{pattern}", vendor, re.IGNORECASE
+                                    )
+                                if method:
+                                    _found = True
+                                    result.append(category)
+                                    break
+                # if there was no break, then no match was found, so we have to add empty string. the same if vendor is
+                # empty string
                 if not _found:
                     result.append("")
             return result
         except Exception:
             # if you created a new yaml file, you should add a "-" to it, so it can be read as a list
-            raise Exception(f"ADD LIST ELEMENT TO YAML FILE!")
+            traceback.print_exc()
+            print(
+                f"ERROR is within the '{category}' category, with the '{pattern}' pattern or the '{vendor}' vendor."
+            )
 
 
 ### TESTS ###
