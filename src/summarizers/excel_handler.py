@@ -19,7 +19,11 @@ class ExcelHandler:
                 df.to_excel(writer, sheet_name=str(sheet_name), index=False)
 
     @staticmethod
-    def add_df_to_excel(df: pd.DataFrame, sheet_name: str, fname: str):
+    def add_df_to_excel(
+        df: pd.DataFrame, sheet_name: str, fname: str, return_df: bool = False
+    ) -> None | list[pd.DataFrame]:
         dfs = ExcelHandler.read_excel(fname)
         dfs[sheet_name] = df
         ExcelHandler.write_excel(dfs, fname)
+        if return_df:
+            return dfs
