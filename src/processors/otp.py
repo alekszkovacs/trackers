@@ -23,7 +23,13 @@ class Otp(Processor):
         super().__init__()
 
     def _remove_account_stuff(self):
-        pass
+        # remove revolut top-ups
+        df = self.df
+        self.df = df[
+            ~df[self.vendor_column].str.contains(
+                "revolut**", case=False, na=False, regex=False
+            )
+        ]
 
     def _keep_only_completed_txns(self):
         pass

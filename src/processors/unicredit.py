@@ -29,6 +29,14 @@ class Unicredit(Processor):
         self.df.columns = self.df.iloc[2]
         self.df = self.df[3:]
 
+        # remove revolut top-ups
+        df = self.df
+        self.df = df[
+            ~df[self.vendor_column].str.contains(
+                "revolut**", case=False, na=False, regex=False
+            )
+        ]
+
     def _keep_only_completed_txns(self):
         df = self.df
         self.df = df[df[self.completed_txns_column] == ("Könyvelt")]

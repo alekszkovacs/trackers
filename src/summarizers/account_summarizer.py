@@ -13,8 +13,11 @@ class AccountSummarizer:
 
         config_object = ConfigParser()
         config_object.read(f"{PROJECT_ROOT}/config.ini")
-        self.database_folder = f'{config_object["DEFAULT"]["database_folder"]}/{config_object["DEFAULT"]["current_year"]}'
-        self.sum_folder = config_object["DEFAULT"]["sum_folder"]
+        self.current_year = config_object["DEFAULT"]["current_year"]
+        self.database_folder = (
+            f'{config_object["DEFAULT"]["data_folder"]}/{self.current_year}'
+        )
+        self.output_folder = config_object["DEFAULT"]["output_folder"]
 
         self._acc_db_map = self._get_account_database_mapping()
 
@@ -24,7 +27,7 @@ class AccountSummarizer:
             "unicredit": "c_unicredit.xlsx",
             "revolut": "c_revolut.xlsx",
             "szep": "c_szep.xlsx",
-            "wise": "c_wise.xlsx",
+            # "wise": "c_wise.xlsx",
         }
 
     def _get_account_database(self, account: str) -> pd.DataFrame:
@@ -40,7 +43,7 @@ class AccountSummarizer:
         df = self._get_account_database(account)
         df = df.groupby("category")["sum"].sum().reset_index()
 
-        file = f"{self.sum_folder}/_per_account/{account}_summary.xlsx"
+        file = f"{self.output_folder}/_per_account/{self.current_year}/{account}_summary.xlsx"
         ExcelHandler.add_df_to_excel(df, self.month, file)
         return df
 

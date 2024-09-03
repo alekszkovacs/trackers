@@ -28,7 +28,7 @@ class Revolut(Processor):
     def _remove_account_stuff(self):
         # remove rows from df which contain "To HUF" or "Apple Pay Top-Up" in the "Description" column
         df = self.df
-        self.df = df[~df[self.vendor_column].str.contains("To HUF|Apple Pay Top-Up")]
+        self.df = df[~df[self.vendor_column].str.contains("To HUF|Top-Up")]
 
     def _keep_only_completed_txns(self):
         df = self.df

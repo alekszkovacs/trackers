@@ -19,8 +19,8 @@ class Processor(ABC):
 
         config_object = ConfigParser()
         config_object.read(f"{PROJECT_ROOT}/config.ini")
-        self._source_folder = config_object["DEFAULT"]["_source_folder"]
-        self.database_folder = f'{config_object["DEFAULT"]["database_folder"]}/{config_object["DEFAULT"]["current_year"]}'
+        self.feeder_folder = config_object["DEFAULT"]["feeder_folder"]
+        self.database_folder = f'{config_object["DEFAULT"]["data_folder"]}/{config_object["DEFAULT"]["current_year"]}'
 
         self.completed_txns_column = None
         self.date_column = None
@@ -57,7 +57,7 @@ class Processor(ABC):
         """
 
         categories_path = f"{CURRENT_DIR}/categories/{categories_fname}"
-        source_path = f"{PROJECT_ROOT}/{self._source_folder}/{source_fname}"
+        source_path = f"{PROJECT_ROOT}/{self.feeder_folder}/{source_fname}"
         output_path = f"{PROJECT_ROOT}/{self.database_folder}/{output_fname}"
 
         self.completed_txns_column = completed_txns_column
@@ -70,6 +70,7 @@ class Processor(ABC):
             self.date_column,
             self.amount_column,
             self.category_column,
+            "",
             "",
             self.vendor_column,
         ]
